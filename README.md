@@ -12,6 +12,8 @@ I want to build a common template (based on Pytorch) to implement the common net
 
 I will continue to improve the content of the template in the future, and try my best to gradually add some network structure models.
 
+I will updata some details on my [gitbook](https://junbin.gitbook.io/studynotes/).
+
 I am a novice, welcome to criticize and guide.
 
 ## Requirement
