@@ -1,0 +1,10 @@
+params:
+  Dataset_root_path: './Data/Dataset/'
+  num_class: 2
+  checkpoint_path: './checkpoint'
+  BATCH_SIZE: 1
+  num_workers: 1
+  learning_rate: 0.0001
+  select_net: 'vgg'
+  use_gpu: False
+  EPOCH: 20
