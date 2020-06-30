@@ -7,8 +7,8 @@ class Network():
             import Network.vgg as vgg
             self.net = vgg.vgg()
         # elif select_net == 'resnet':
-        #     import resnet
-        #     net = resnet()
+        #     import Network.resnet as resnet
+        #     self.net = resnet()
         else:
             self.net = None
             print('the network name you have entered is not supported yet')
