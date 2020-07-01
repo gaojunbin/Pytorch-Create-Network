@@ -15,3 +15,4 @@ else
         rm -f -r ${checkpoint_dir}/.*
         echo "模型已清空"
 fi
+find . -name '__pycache__' -type d -exec rm -rf {} \;
