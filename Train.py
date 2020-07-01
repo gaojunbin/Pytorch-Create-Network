@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on 2020.6
+Latest modify 2020.7
+@Author: Junbin
+@Note  : Train
+"""
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -18,7 +25,7 @@ parser = argparse.ArgumentParser(description='params about training')
 parser.add_argument('--config', default='Config/Config.yaml', type=str)
 
 def train(args,logs_file):
-    
+    # train and test data Pretreatment factory
     train_transforms = transforms.Compose([
         dp.NumpyToTensor()
     ])
@@ -28,24 +35,25 @@ def train(args,logs_file):
 
     mydataset_train = dr.MyDataset(num_class = args.num_class, is_train = True, root_path=args.Dataset_root_path, transform=train_transforms)
     train_loader = Data.DataLoader(
-        dataset=mydataset_train,      # 数据集
+        dataset=mydataset_train,      # dataset
         batch_size=args.BATCH_SIZE,   # mini batch size
-        shuffle=True,                 # 是否打乱数据集
+        shuffle=True,                 # is need to shuffle or not
         num_workers=args.num_workers,        
     )
 
     mydataset_test = dr.MyDataset(num_class = args.num_class, is_train = False, root_path=args.Dataset_root_path, transform=train_transforms)
     test_loader = Data.DataLoader(
-        dataset=mydataset_test,      # 数据集
-        batch_size=args.BATCH_SIZE, # mini batch size
-        shuffle=False,              # 是否打乱数据集
+        dataset=mydataset_test,      # dataset
+        batch_size=args.BATCH_SIZE,  # mini batch size
+        shuffle=False,               # is need to shuffle or not
         num_workers=args.num_workers,        
     )
 
     with open(logs_file, 'a') as f:
-        f.write("训练集数据个数：%d,测试集数据个数：%d\n"%(len(mydataset_train),len(mydataset_test)))
+        f.write("the number of train data：%d,the number of test data：%d\n"%(len(mydataset_train),len(mydataset_test)))
         f.write("%20s%20s%20s\n"%('Epoch:','train loss','test accuracy'))
 
+    # initial the network and optimizer
     network = Network.Network(select_net = args.select_net, use_gpu = args.use_gpu)
     net = network.get_net()
     optimizer = optim.Adam(net.parameters(), lr=args.learning_rate) 
@@ -56,8 +64,9 @@ def train(args,logs_file):
         try:
             net.load_state_dict(torch.load(args.checkpoint_path+'/'+args.checkpoint_pre))
         except:
-            print("**no checkpoint can not be found**\n")
+            print("**no checkpoint can be found**\n")
 
+    # train
     for epoch in range(args.EPOCH):
         for step,(b_x,b_y) in enumerate(train_loader):
             network.train_or_test(is_train = True)
@@ -94,6 +103,7 @@ def train(args,logs_file):
     torch.save(net.state_dict(), args.checkpoint_path+'/'+args.checkpoint_save)
 
 def main():
+    # get the config parameters and print
     args = parser.parse_args()
     with open(args.config) as f:
         config = yaml.load(f)

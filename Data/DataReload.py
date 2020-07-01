@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on 2020.6
-latest modify 2020.6
-@author: Junbin
-@note: Dataset Reload
+Latest modify 2020.7
+@Author: Junbin
+@Note  : Dataset Reload
 """
-
 import torch
 import torch.utils.data as Data
 import numpy as np
@@ -46,29 +45,25 @@ class MyDataset(Data.Dataset):
             test_num = num - train_num
             train_index = sorted(random.sample([_ for _ in range(num)],train_num))
             for i in range(num):
+                # here if use cv2 to get the data, we must reshape the size of data array to [channel,height,width]
                 img = cv2.imread(ls_dir+dirs[i]).reshape(-1,224,224)
                 if img is None :
-                    print("%s图片不存在，已跳过"%(ls_dir + dirs[i]))
+                    print("%scan not be gotten, skiped\n"%(ls_dir + dirs[i]))
                     continue
                 else:
                     if self.is_train == True:
                         if (int(i) in train_index):
                             self.data.append(img)
-                            # label = np.zeros(self.num_class)
-                            # label[int(each_class)] = 1.0
-                            # label = label.tolist()
-                            # self.lable.append(label)
                             self.lable.append(int(each_class))
                     else:
                         if (int(i) not in train_index):
                             self.data.append(img)
-                            # label = np.zeros(self.num_class)
-                            # label[int(each_class)] = 1.0
-                            # label = label.tolist()
-                            # self.lable.append(label)
                             self.lable.append(each_class)
 
     def __len__(self):
+        r"""
+        return the number of data(an epoch)
+        """
         return len(self.data)
 
     def __getitem__(self, index):
@@ -90,9 +85,9 @@ def main():
     mydataset_train = MyDataset(num_class = 2,is_train = True, transform=transforms)
     # print(len(mydataset_train))
     loader = Data.DataLoader(
-        dataset=mydataset_train,      # 数据集
+        dataset=mydataset_train,      # Dataset
         batch_size=1,                 # mini batch size
-        shuffle=True,                 # 是否打乱数据集
+        shuffle=True,                 # is need to shuffle or not
         num_workers=1,        
     )
     for step, (batch_x, batch_y) in enumerate(loader): 

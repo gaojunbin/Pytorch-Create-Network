@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on 2020.6
+Latest modify 2020.7
+@Author: Junbin
+@Note  : vgg net(modified)
+"""
 import torch
 import torch.nn as nn
 
@@ -8,7 +15,7 @@ class vgg(nn.Module):
         self.conv1 = nn.Sequential(         # input shape (3,224,224)
             nn.Conv2d(
                 in_channels=3,              # input height
-                out_channels=4,            # n_filters
+                out_channels=4,             # n_filters
                 kernel_size=3,              # filter size
                 stride=1,                   # filter movement/step
                 padding=1,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
@@ -17,12 +24,12 @@ class vgg(nn.Module):
             nn.MaxPool2d(
                 kernel_size=2,
                 stride=2
-            ),    # choose max value in 2x2 area, output shape (4,112,112)
+            ),    
         )
         self.conv2 = nn.Sequential(         
             nn.Conv2d(
                 in_channels=4,              # input height
-                out_channels=8,            # n_filters
+                out_channels=8,             # n_filters
                 kernel_size=3,              # filter size
                 stride=1,                   # filter movement/step
                 padding=1,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
@@ -45,15 +52,15 @@ class vgg(nn.Module):
             nn.MaxPool2d(
                 kernel_size=2,
                 stride=2
-            ),    # choose max value in 2x2 area, output shape (16, 28,28)
+            ),    
         )
         self.conv4 = nn.Sequential(         
             nn.Conv2d(
                 in_channels=16,              # input height
-                out_channels=32,            # n_filters
-                kernel_size=3,              # filter size
-                stride=1,                   # filter movement/step
-                padding=1,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
+                out_channels=32,             # n_filters
+                kernel_size=3,               # filter size
+                stride=1,                    # filter movement/step
+                padding=1,                   # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
             ),                              
             nn.ReLU(),
             nn.MaxPool2d(
@@ -64,10 +71,10 @@ class vgg(nn.Module):
         self.conv5 = nn.Sequential(         
             nn.Conv2d(
                 in_channels=32,              # input height
-                out_channels=64,            # n_filters
-                kernel_size=3,              # filter size
-                stride=1,                   # filter movement/step
-                padding=1,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
+                out_channels=64,             # n_filters
+                kernel_size=3,               # filter size
+                stride=1,                    # filter movement/step
+                padding=1,                   # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
             ),                              
             nn.ReLU(),
             nn.MaxPool2d(
@@ -76,7 +83,7 @@ class vgg(nn.Module):
             ),    
         )
         self.fl1 = nn.Sequential( 
-            nn.Linear(64*7*7, 256),   # fully connected layer, output 10 classes
+            nn.Linear(64*7*7, 256),          # fully connected layer, output 10 classes
             nn.ReLU(),
             nn.Dropout(p=0.5)
         )

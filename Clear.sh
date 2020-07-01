@@ -1,18 +1,19 @@
 #!/bin/sh
+# clear the cache file and restart to train and inference
 log_dir=./logs
 checkpoint_dir=./checkpoint
 if [ "`ls -A ${log_dir}`" == "" ];then 
-        echo "暂无日志"
+        echo "no logs exist"
 else
         rm -f -r ${log_dir}/*
         rm -f -r ${log_dir}/.*
-        echo "日志文件已清空"
+        echo "logs has been deleted all"
 fi
 if [ "`ls -A ${checkpoint_dir}`" == "" ];then 
-        echo "暂无模型"
+        echo "no checkpoints exist"
 else
         rm -f -r ${checkpoint_dir}/*
         rm -f -r ${checkpoint_dir}/.*
-        echo "模型已清空"
+        echo "checkpoints has been deleted all"
 fi
 find . -name '__pycache__' -type d -exec rm -rf {} \;

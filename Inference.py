@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on 2020.6
+Latest modify 2020.7
+@Author: Junbin
+@Note  : Inference
+"""
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -17,14 +24,14 @@ parser = argparse.ArgumentParser(description='params about inference')
 parser.add_argument('--config', default='Config/Config.yaml', type=str)
 
 def inference(inference_img:np.ndarray,args) -> int:
-    
+    # inference data Pretreatment factory
     inference_transforms = transforms.Compose([
         dp.CVReshape(),
         dp.NumpyToTensor()
     ])
-
     inference_tensor = inference_transforms(inference_img)
 
+    # initial network
     network = Network.Network(select_net = args.select_net)
     net = network.get_net()
 
@@ -34,12 +41,14 @@ def inference(inference_img:np.ndarray,args) -> int:
     except:
         print("**no model can be found**\n")
 
+    # inference
     network.train_or_test(is_train = False)
     inference_output = net(inference_tensor)
     inference_result = torch.max(inference_output, 1)[1].data.numpy()[0]
     return inference_result
 
 def main():
+    # get the config parameters and print
     args = parser.parse_args()
     with open(args.config) as f:
         config = yaml.load(f)

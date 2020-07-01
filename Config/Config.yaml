@@ -1,7 +1,8 @@
 #####
-# 训练与推理参数配置文件
+# Created on 2020.6
+# Latest modify 2020.7
 # @Author:Junbin
-# @Notes :见注释，详情请访问[作者的gitbook](https://junbin.gitbook.io/studynotes/)
+# @Notes :Train and Inference config file
 #####
 train:
   Dataset_root_path: './Data/Dataset/'    # 数据集加载地址

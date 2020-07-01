@@ -16,16 +16,22 @@ I will updata some details on my [gitbook](https://junbin.gitbook.io/studynotes/
 
 I am a novice, welcome to criticize and guide.
 
-## Requirement
+<h2 id="Requirement">Requirement</span> 
 
-- Ubuntu > 14.04 / Windows > 7 / Macos > 10.14
+- Ubuntu >= 16.04 / Macos >= 10.14
 - Python 3 (recommend Anaconda3)
 - Pytorch 1.5.0
 
+Attention: Theoretically, you can also run on windows>=8, except the shell files.
+
 ## Train
 
+If this is your first cloning, you should install the enviroment mentioned in [Requirement](#Requirement).
+
+Then run the following command，
+
 ```shell
-python Train.py --config './Config/Config.yaml'
+sh Train.sh
 ```
 
 You can modify params in `Config/Config.yaml`. And you may need to modify the dataset reload code for fit your own project and datasets.
@@ -33,6 +39,12 @@ You can modify params in `Config/Config.yaml`. And you may need to modify the da
 Suggest you to organize files in the following structure:
 
 > Train.py
+>
+> Train.sh
+>
+> Inference.py
+>
+> Clear.sh
 >
 > Config
 >
@@ -60,9 +72,20 @@ Suggest you to organize files in the following structure:
 >
 > ...
 
+## Inference
 
+You can modify the ```Inference.py```to use the model after training to inference your data. Of cource, you can add some your own codes to complete the batch inference and realize visualization function.
 
+```shell
+python Inference.py --config ./Config/Config.yaml
+```
 
+## Clear
 
+If you wat to make the project to clear the cache during you run the codes or train the models. You can run the following command，
 
+```shell
+sh Clear.sh
+```
 
+Attention: This command will delet all the modles and logs without prompting! Please careful operation. You are advised to make a backup if necessary.
