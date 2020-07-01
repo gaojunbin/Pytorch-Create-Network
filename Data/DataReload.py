@@ -97,7 +97,6 @@ def main():
     )
     for step, (batch_x, batch_y) in enumerate(loader): 
         # print('step:',step,'batch_x:',batch_x,'batch_y:',batch_y)
-        print(batch_y)
-        pass
+        print(batch_x.size())
 if __name__ == "__main__":
     main()

@@ -3,3 +3,4 @@ checkpoint/
 logs/
 __pycache__/
 tempCodeRunnerFile.py
+*.pyc

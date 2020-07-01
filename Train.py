@@ -43,6 +43,7 @@ def train(args,logs_file):
     )
 
     with open(logs_file, 'a') as f:
+        f.write("训练集数据个数：%d,测试集数据个数：%d\n"%(len(mydataset_train),len(mydataset_test)))
         f.write("%20s%20s%20s\n"%('Epoch:','train loss','test accuracy'))
 
     network = Network.Network(select_net = args.select_net, use_gpu = args.use_gpu)
@@ -97,7 +98,7 @@ def main():
     with open(args.config) as f:
         config = yaml.load(f)
     print("\n**************************")
-    for k, v in config['params'].items():
+    for k, v in config['train'].items():
         setattr(args, k, v)
         print('\n[%s]:'%(k), v)
     print("\n**************************\n")

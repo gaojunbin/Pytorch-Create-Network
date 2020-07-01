@@ -1,9 +1,9 @@
 #####
-# 训练模型参数配置文件
+# 训练与推理参数配置文件
 # @Author:Junbin
 # @Notes :见注释，详情请访问[作者的gitbook](https://junbin.gitbook.io/studynotes/)
 #####
-params:
+train:
   Dataset_root_path: './Data/Dataset/'    # 数据集加载地址
   num_class: 2                            # 类别数量
   BATCH_SIZE: 1                           # BATCH SIZE
@@ -20,3 +20,8 @@ params:
   logs_frequecy: 1                        # 训练日志生成频率
   print_logs: True                        # 是否打印训练日志
   use_tensorboard: False                  # 是否使用tensorboard训练可视化（该功能尚未开发，该参数预留）
+
+inference:
+  select_net: 'vgg'                       # 网络选择
+  checkpoint_path: './checkpoint'         # 模型参数保存地址或模型读取地址
+  checkpoint_inf: 'net_save.pkl'          # 推理模型参数文件
