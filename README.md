@@ -4,9 +4,19 @@
 
 Gao Junbin , Northeastern University at Qinhuangdao , Hebei , China
 
-Visit count:[![HitCount](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network.svg)](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network)
+Visit count : [![HitCount](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network.svg)](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network)
+
+About Author : [![](https://badgen.net/badge/icon/Website?icon=chrome&label)](http://junbin.xyz) 
 
 ---
+
+## 目录
+
+- [Introduction](#Introduction)
+- [Requirement](#Requirement)
+- [Train](#Train)
+- [Inference](#Inference)
+- [Clear](#Clear)
 
 ## Introduction
 
@@ -18,7 +28,7 @@ I will updata some details on my [gitbook](https://junbin.gitbook.io/studynotes/
 
 I am a novice, welcome to criticize and guide.
 
-<h2 id="Requirement">Requirement</h2> 
+## Requirement 
 
 - Ubuntu >= 16.04 / Macos >= 10.14
 - Python 3 (recommend Anaconda3)
