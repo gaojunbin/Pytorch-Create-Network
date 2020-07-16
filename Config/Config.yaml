@@ -5,16 +5,16 @@
 # @Notes :Train and Inference config file
 #####
 train:
-  Dataset_root_path: './Data/Dataset/'    # 数据集加载地址
+  Dataset_root_path: './Data/Dataset'     # 数据集加载地址
   num_class: 2                            # 类别数量
-  BATCH_SIZE: 1                           # BATCH SIZE
+  BATCH_SIZE: 5                           # BATCH SIZE
   num_workers: 1                          # num workers
   learning_rate: 0.0001                   # learning rate
   select_net: 'vgg'                       # 网络选择
   use_gpu: False                          # 是否使用gpu（该功能尚未测试）
   EPOCH: 20                               # epoch
   checkpoint_path: './checkpoint'         # 模型参数保存地址或模型读取地址
-  use_checkpoint: True                    # 是否加载预训练模型
+  use_checkpoint: False                   # 是否加载预训练模型
   checkpoint_pre: 'net_pre.pkl'           # 仅use_checkpoint（True）时生效，表示预训练模型名称
   checkpoint_save: 'net_save.pkl'         # 训练后模型的保存名称
   logs_path: './logs'                     # 训练日志保存地址

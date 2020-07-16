@@ -26,6 +26,7 @@ parser.add_argument('--config', default='Config/Config.yaml', type=str)
 def inference(inference_img:np.ndarray,args) -> int:
     # inference data Pretreatment factory
     inference_transforms = transforms.Compose([
+        dp.ResizePicture(),
         dp.CVReshape(),
         dp.NumpyToTensor()
     ])

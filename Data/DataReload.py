@@ -45,8 +45,8 @@ class MyDataset(Data.Dataset):
             test_num = num - train_num
             train_index = sorted(random.sample([_ for _ in range(num)],train_num))
             for i in range(num):
-                # here if use cv2 to get the data, we must reshape the size of data array to [channel,height,width]
-                img = cv2.imread(ls_dir+dirs[i]).reshape(-1,224,224)
+                # here if use cv2 to get the data, we must reshape the size in transform
+                img = cv2.imread(ls_dir+dirs[i])
                 if img is None :
                     print("%scan not be gotten, skiped\n"%(ls_dir + dirs[i]))
                     continue
@@ -80,13 +80,15 @@ def main():
     from torchvision import transforms
     import DataPre as dp
     transforms = transforms.Compose([
+        dp.ResizePicture(),
+        dp.CVReshape(),
         dp.NumpyToTensor()
     ])
     mydataset_train = MyDataset(num_class = 2,is_train = True, transform=transforms)
     # print(len(mydataset_train))
     loader = Data.DataLoader(
         dataset=mydataset_train,      # Dataset
-        batch_size=1,                 # mini batch size
+        batch_size=5,                 # mini batch size
         shuffle=True,                 # is need to shuffle or not
         num_workers=1,        
     )
