@@ -6,7 +6,7 @@
 #####
 train:
   Dataset_root_path: './Data/Dataset'     # 数据集加载地址
-  num_class: 2                            # 类别数量
+  num_class: 2                            # 类别数量(记得跟网络的输出保持统一)
   BATCH_SIZE: 5                           # BATCH SIZE
   num_workers: 1                          # num workers
   learning_rate: 0.0001                   # learning rate

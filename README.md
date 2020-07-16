@@ -101,3 +101,18 @@ sh Clear.sh
 ```
 
 Attention: This command will delet all the modles and logs without prompting! Please careful operation. You are advised to make a backup if necessary.
+
+## Config
+
+Here lists some important params.
+
++ Dataset_root_path
+
+  String, the root folder placing the datasets, such as `'./Data/Dataset'`. That means the images are placed in the folder `'/Dataset'`. Attention, don't add `'/'`after the end of the path, for example,  `'./Data/Dataset/'` is wrong (because `'/'` has been added in the file `DataReload.py`).
+
++ num_class
+
+  the number of class you need to classification. Remember to modify/adapter the network output shape.
+
+  
+
