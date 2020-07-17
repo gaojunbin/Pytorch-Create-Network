@@ -17,6 +17,7 @@ About Author : [![](https://badgen.net/badge/icon/Website?icon=chrome&label)](ht
 - [Train](#Train)
 - [Inference](#Inference)
 - [Clear](#Clear)
+- [Config](#Config)
 
 ## Introduction
 
