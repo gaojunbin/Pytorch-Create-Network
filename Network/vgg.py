@@ -11,7 +11,7 @@ import torch.nn as nn
 class vgg(nn.Module):
     def __init__(self):
         super(vgg, self).__init__()
-        self.is_train = True
+        self.dropout_p = 0.5
         self.conv1 = nn.Sequential(         # input shape (3,224,224)
             nn.Conv2d(
                 in_channels=3,              # input height
@@ -85,17 +85,17 @@ class vgg(nn.Module):
         self.fl1 = nn.Sequential( 
             nn.Linear(64*7*7, 256),          # fully connected layer, output 10 classes
             nn.ReLU(),
-            nn.Dropout(p=0.5)
+            nn.Dropout(p=self.dropout_p)
         )
         self.fl2 = nn.Sequential(
             nn.Linear(256,128),
             nn.ReLU(),
+            nn.Dropout(p=self.dropout_p)
         )
         self.fl3 = nn.Sequential(
             nn.Linear(128,2),
             nn.ReLU(),
         )
-        self.drop =  nn.Dropout(p=0.5)
     def forward(self, x):
         x = self.conv1(x)
         x = self.conv2(x)
@@ -104,15 +104,6 @@ class vgg(nn.Module):
         x = self.conv5(x)
         x = x.view(x.size(0), -1)
         x = self.fl1(x)
-        if  self.is_train == True:     
-            x = self.drop(x)
         x = self.fl2(x)
-        if  self.is_train == True:     
-            x = self.drop(x)
         output = self.fl3(x)
         return output
-    def train_or_test(self,is_train):
-        self.is_train = is_train
-    def printparam(self):
-        print(self.is_train)
-

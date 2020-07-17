@@ -11,6 +11,7 @@ import torch.nn as nn
 import torch.utils.data as Data
 from torch.autograd import Variable
 from torchvision import transforms
+from torch.utils.tensorboard import SummaryWriter
 import numpy as np
 import Data.DataPre as dp
 import Data.DataReload as dr
@@ -53,6 +54,7 @@ def train(args,logs_file):
         num_workers=args.num_workers,        
     )
 
+    # add logs message to logs file
     with open(logs_file, 'a') as f:
         f.write("the number of train data：%d,the number of test data：%d\n"%(len(mydataset_train),len(mydataset_test)))
         f.write("%20s%20s%20s\n"%('Epoch:','train loss','test accuracy'))
@@ -62,6 +64,12 @@ def train(args,logs_file):
     net = network.get_net()
     optimizer = optim.Adam(net.parameters(), lr=args.learning_rate) 
     loss_func = nn.CrossEntropyLoss()
+
+    # use tensorboard
+    if args.use_tensorboard:
+        writer = SummaryWriter(log_dir=args.tensorboard_path)
+        input_tensor = torch.Tensor(args.BATCH_SIZE, 3, 224, 224)
+        writer.add_graph(net, Variable(input_tensor, requires_grad=True))
 
     # restore the parameters 
     if args.use_checkpoint:
@@ -73,7 +81,6 @@ def train(args,logs_file):
     # train
     for epoch in range(args.EPOCH):
         for step,(b_x,b_y) in enumerate(train_loader):
-            network.train_or_test(is_train = True)
             if args.use_gpu:
                 b_x = b_x.cuda()
                 b_y = b_y.cuda()
@@ -85,13 +92,15 @@ def train(args,logs_file):
             if args.use_gpu:
                 loss = loss.cpu()
             if step % args.logs_frequecy == 0:
-                network.train_or_test(is_train = False)
                 correct = 0.0
                 for (t_x,t_y) in test_loader:
                     if args.use_gpu:
                         t_x = t_x.cuda()
                         t_y = t_y.cuda()
+
+                    net.eval()   # parameters for dropout differ from train mode
                     test_output = net(t_x)
+                    net.train()  # change back to train mode
                     pred_y = torch.max(test_output, 1)[1]
                     correct += pred_y.eq(t_y).sum()
                 accuracy = correct.float() / len(mydataset_test)
@@ -105,6 +114,11 @@ def train(args,logs_file):
 
     # save only the parameters              
     torch.save(net.state_dict(), args.checkpoint_path+'/'+args.checkpoint_save)
+
+    # use tensorboard
+    if args.use_tensorboard:
+        writer.close()
+
 
 def main():
     # get the config parameters and print
@@ -132,6 +146,10 @@ def main():
         str(time.localtime(time.time()).tm_min)  + \
         str(time.localtime(time.time()).tm_sec)  + \
         '.txt'
+
+    # create tesorboard_logs folder to save the tensorboard file
+    if not os.path.exists(args.tensorboard_path):
+        os.makedirs(args.tensorboard_path)
 
     # check gpu is available or not
     if args.use_gpu:

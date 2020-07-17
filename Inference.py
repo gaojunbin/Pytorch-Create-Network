@@ -43,7 +43,6 @@ def inference(inference_img:np.ndarray,args) -> int:
         print("**no model can be found**\n")
 
     # inference
-    network.train_or_test(is_train = False)
     inference_output = net(inference_tensor)
     inference_result = torch.max(inference_output, 1)[1].data.numpy()[0]
     return inference_result

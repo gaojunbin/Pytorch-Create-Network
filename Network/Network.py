@@ -34,15 +34,6 @@ class Network():
         return the net has been created
         """
         return self.net
-    def train_or_test(self,is_train:bool):
-        r"""
-        before use the net to calculate, must set is train or not(especially with dropout layer)
-        """
-        try:
-            self.net.train_or_test(is_train)
-        except:
-            print("\nfailed to set the net model train or test！\n")
-            sys.exit()
 
 def main():
     network = Network(select_net='vgg',use_gpu=False)
