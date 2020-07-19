@@ -86,3 +86,10 @@ class alexnet(nn.Module):
         x = x.view(-1, 6*6*256)
         x = self.layer8(self.layer7(self.layer6(x)))
         return x
+
+def main():
+    net = alexnet()
+    print(net)
+
+if __name__ == '__main__':
+    main()
