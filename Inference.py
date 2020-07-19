@@ -27,7 +27,7 @@ def inference(inference_img:np.ndarray,args) -> int:
     # inference data Pretreatment factory
     inference_transforms = transforms.Compose([
         dp.ResizePicture(),
-        dp.CVReshape(),
+        dp.CVReshape_inference(),
         dp.NumpyToTensor()
     ])
     inference_tensor = inference_transforms(inference_img)
@@ -58,7 +58,7 @@ def main():
         print('\n[%s]:'%(k), v)
     print("\n**************************\n")
 
-    inference_img = cv2.imread('./Data/Dataset/dog/copper0_95.png')
+    inference_img = cv2.imread('./Data/Dataset/person/person_0.jpg')
     result = inference(inference_img,args)
     print(result)
 

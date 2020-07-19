@@ -23,6 +23,14 @@ class CVReshape(object):
         # here if use cv2 to get the data, we must reshape the size of data array to [channel,width,height]
         return data.reshape(3,224,224)
 
+class CVReshape_inference(object):
+    r"""
+    reshape the image read by cv2
+    """
+    def __call__(self, data:np.ndarray) -> np.ndarray:
+        # here if use cv2 to get the data, we must reshape the size of data array to [channel,width,height]
+        return data.reshape(1,3,224,224)
+
 class ResizePicture(object):
     r"""
     resize the picture to the wanted size(width,height)
