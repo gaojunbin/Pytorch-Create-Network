@@ -111,7 +111,7 @@ def train(args,logs_file):
                 if args.use_gpu:
                     accuracy = accuracy.cpu()
                 if args.print_logs is True:
-                    print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.numpy(), '| test accuracy: %.2f' % accuracy.data.numpy())
+                    print('Epoch: ', epoch, '| [', step*args.BATCH_SIZE, '/', len(mydataset_train), ']', '| train loss: %.4f' % loss.data.numpy(), '| test accuracy: %.2f' % accuracy.data.numpy())
                 with open(logs_file, 'a') as f:
                     logs_content = "%20d%16.4f%18.2f\n"%(epoch,loss.data.numpy(),accuracy.data.numpy())
                     f.write(logs_content)
