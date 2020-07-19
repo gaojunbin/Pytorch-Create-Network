@@ -69,6 +69,8 @@ def train(args,logs_file):
     if args.use_tensorboard:
         writer = SummaryWriter(log_dir=args.tensorboard_path)
         input_tensor = torch.Tensor(args.BATCH_SIZE, 3, 224, 224)
+        if args.use_gpu:
+            input_tensor = input_tensor.cuda()
         writer.add_graph(net, Variable(input_tensor, requires_grad=True))
 
     # restore the parameters 
@@ -81,6 +83,8 @@ def train(args,logs_file):
     # train
     for epoch in range(args.EPOCH):
         for step,(b_x,b_y) in enumerate(train_loader):
+            b_x = Variable(b_x)
+            b_y = Variable(b_y)
             if args.use_gpu:
                 b_x = b_x.cuda()
                 b_y = b_y.cuda()
