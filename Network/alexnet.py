@@ -4,6 +4,7 @@ Created on 2020.7
 Latest modify 2020.7
 @Author: Junbin
 @Note  : alexnet net
+[1] Input shape []
 """
 import torch
 import torch.nn as nn

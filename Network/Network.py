@@ -5,6 +5,7 @@ Latest modify 2020.7
 @Author: Junbin
 @Note  : Network factory
 """
+import sys
 class Network():
     r"""
     Factory to manage all the networks.
@@ -19,9 +20,12 @@ class Network():
         if select_net == 'vgg':
             import Network.vgg as vgg
             self.net = vgg.vgg()
-        # elif select_net == 'resnet':
-        #     import Network.resnet as resnet
-        #     self.net = resnet()
+        elif select_net == 'alexnet':
+            import Network.alexnet as alexnet
+            self.net = alexnet.alexnet()
+        elif select_net == 'googlenet':
+            import Network.googlenet as googlenet
+            self.net = googlenet.googlenet()
         else:
             self.net = None
             print('the network name you have entered is not supported yet')

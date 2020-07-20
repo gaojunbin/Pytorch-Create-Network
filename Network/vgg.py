@@ -4,6 +4,7 @@ Created on 2020.6
 Latest modify 2020.7
 @Author: Junbin
 @Note  : vgg net(modified)
+[1] Input shape [3,224,224]
 """
 import torch
 import torch.nn as nn
