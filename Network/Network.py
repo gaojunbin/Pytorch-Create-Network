@@ -26,6 +26,9 @@ class Network():
         elif select_net == 'googlenet':
             import Network.googlenet as googlenet
             self.net = googlenet.googlenet()
+        elif select_net == 'resnet34':
+            import Network.resnet as resnet
+            self.net = resnet.resnet34()
         else:
             self.net = None
             print('the network name you have entered is not supported yet')
