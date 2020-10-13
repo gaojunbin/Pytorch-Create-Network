@@ -104,6 +104,29 @@ batch_size = args.batch_size   # 通过这种方式获取参数
 python train.py --config config.yaml
 ```
 
+## pytorch 数据集加载
+
++ Dataset类是pytorch图像数据集中重要的类，是pytorch数据集加载应该继承的父类。
+
+```python
+from torch.utils.data import Dataset, DataLoader
+```
+
++ 若要加载自己的数据集，Dataset中的两个私有函数必须重写：
+
+```python
+def __getitem__(self,index):
+  r"""getitem函数
+  接收的index是一个list的index，这个函数Dataloader会调用
+  """
+def __len__(self):
+  r"""数据集长度函数
+  返回值为数据集的大小，注意这个是Dataloader取getitem时索引的上限依据，如果返回值不正确，可能会导致训练集数据被吞
+  """
+```
+
++ 一般list中存图片或者lable的路径，在getitem时通过索引读取，不要一口气把数据加载到list中。
+
 ## pytorch与其他数据互转
 
 + pytorch与numpy数据互转
@@ -213,6 +236,14 @@ class Net(nn.Module):
         return output
 net = Net()
 net(x)
+
+# way4 yolo v3构建网络 torch.nn.ModuleList()
+module_list = torch.nn.ModuleList()
+for index, x in enumerate(blocks[1:]): # 根据不同的block，遍历module
+	module = nn.Sequential()
+  module.add_module("batch_norm_{0}".format(index), bn)
+  # ...
+	module_list.append(module)
 ```
 
 ## pytorch训练（反向传播）步骤
@@ -384,6 +415,14 @@ for epoch in range(EPOCH):
             accuracy = float((pred_y == test_y.data.numpy()).astype(int).sum()) / float(test_y.size(0))
             print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.numpy(), '| test accuracy: %.2f' % accuracy)
 ```
+
+## tensorboard 可视化训练过程
+
+```shell
+tensorboard --logdir=./logs/
+```
+
+在浏览器打开localhost:port 对应的端口与shell输出一致，即可。
 
 ## 一些注意点（持续更新）
 

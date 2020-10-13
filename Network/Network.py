@@ -29,6 +29,9 @@ class Network():
         elif select_net == 'resnet34':
             import Network.resnet as resnet
             self.net = resnet.resnet34()
+        elif select_net == 'my_net':
+            import Network.my_net as my_net
+            self.net = my_net.my_net()
         else:
             self.net = None
             print('the network name you have entered is not supported yet')
@@ -43,7 +46,7 @@ class Network():
         return self.net
 
 def main():
-    network = Network(select_net='vgg',use_gpu=False)
+    network = Network(select_net='my_net',use_gpu=False)
     net = network.get_net()
     print(net)
 

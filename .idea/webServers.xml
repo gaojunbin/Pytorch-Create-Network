@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="599e6f1d-a6e2-4c72-ac99-c82360b258f5" name="sys3-junbin">
+        <fileTransfer rootFolder="/home/gaojunbin" accessType="SFTP" host="222.20.94.93" port="22" sshConfigId="674cf727-ffd7-4f65-aecc-823fda92c658" sshConfig="gaojunbin@222.20.94.93:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -6,13 +6,13 @@
 #####
 train:
   Dataset_root_path: './Data/Dataset'     # 数据集加载地址
-  num_class: 2                            # 类别数量(记得跟网络的输出保持统一)
+  num_class: 5                            # 类别数量(记得跟网络的输出保持统一)
   BATCH_SIZE: 2                           # BATCH SIZE
   num_workers: 1                          # num workers
   learning_rate: 0.0001                   # learning rate
-  select_net: 'resnet34'                       # 网络选择
+  select_net: 'my_net'                    # 网络选择
   use_gpu: False                          # 是否使用gpu（该功能尚未测试）
-  EPOCH: 10                               # epoch
+  EPOCH: 100                              # epoch
   checkpoint_path: './checkpoint'         # 模型参数保存地址或模型读取地址
   use_checkpoint: False                   # 是否加载预训练模型
   checkpoint_pre: 'net_pre.pkl'           # 仅use_checkpoint（True）时生效，表示预训练模型名称
@@ -20,10 +20,10 @@ train:
   logs_path: './logs'                     # 训练日志保存地址
   logs_frequecy: 1                        # 训练日志生成频率
   print_logs: True                        # 是否打印训练日志
-  use_tensorboard: True                   # 是否使用tensorboard训练可视化（该功能尚未开发，该参数预留）
+  use_tensorboard: False                  # 是否使用tensorboard训练可视化（该功能尚未开发，该参数预留）
   tensorboard_path: './tensorboard_logs'  # 仅use_tensorboard（True）时生效，tensorboard可视化文件保存路径
 
 inference:
-  select_net: 'resnet34'                       # 网络选择
+  select_net: 'my_net'                       # 网络选择
   checkpoint_path: './checkpoint'         # 模型参数保存地址或模型读取地址
   checkpoint_inf: 'net_save.pkl'          # 推理模型参数文件

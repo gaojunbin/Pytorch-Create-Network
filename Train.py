@@ -28,13 +28,9 @@ parser.add_argument('--config', default='Config/Config.yaml', type=str)
 def train(args,logs_file):
     # train and test data Pretreatment factory
     train_transforms = transforms.Compose([
-        dp.ResizePicture(),
-        dp.CVReshape(),
         dp.NumpyToTensor()
     ])
     test_transforms = transforms.Compose([
-        dp.ResizePicture(),
-        dp.CVReshape(),
         dp.NumpyToTensor()
     ])
 
