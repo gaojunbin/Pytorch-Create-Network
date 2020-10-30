@@ -416,6 +416,35 @@ for epoch in range(EPOCH):
             print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.numpy(), '| test accuracy: %.2f' % accuracy)
 ```
 
+## 早停法（Early stop）
+
+```python
+from pytorchtools import EarlyStopping
+# early stopping patience; how long to wait after last time validation loss improved.
+patience = 20
+early_stopping = EarlyStopping(patience=patience, verbose=True)
+def train():
+    val_losses = []
+    for epoch in range(EPOCHES):
+        # Train model
+        model.train()
+        for batch,(data,target) in enumerate(train_loader):
+            # your train step
+        # Validate model
+        model.eval()
+        for batch,(data,target) in enumerate(val_loader):
+            output,loss = model(data)
+            val_losses.append(loss.item())
+        val_loss = np.average(val_losses)
+        # clear lists to track next epoch
+        val_losses = []
+        # early stop
+        early_stopping(val_loss,model)
+        if early_stopping.early_stop:
+            print("Early stoping")
+            break
+```
+
 ## tensorboard 可视化训练过程
 
 ```shell
@@ -428,3 +457,11 @@ tensorboard --logdir=./logs/
 
 1. nn.CrossEntropyLoss()的真实标签不是不同类标签的概率，而是真实标签的索引。这与tensorflow是有所不同的。
 2. 通过cv2.imread()获取的图片通道顺序与卷积的矩阵形状顺序不一致，需要对获取的数据进行reshape(C,h,w)。
+
+3. 锁页内存理解（pinned memory or page locked memory）：
+
+   pin_memory就是锁页内存，创建DataLoader时，设置pin_memory=True，则意味着生成的Tensor数据最开始是属于内存中的锁页内存，这样将内存的Tensor转义到GPU的显存就会更快一些。
+
+   主机中的内存，有两种存在方式，一是锁页，二是不锁页，锁页内存存放的内容在任何情况下都不会与主机的虚拟内存进行交换（注：虚拟内存就是硬盘），而不锁页内存在主机内存不足时，数据会存放在虚拟内存中。而显卡中的显存全部是锁页内存！
+
+   当计算机的内存充足的时候，可以设置pin_memory=True。当系统卡住，或者交换内存使用过多的时候，设置pin_memory=False。因为pin_memory与电脑硬件性能有关，pytorch开发者不能确保每一个炼丹玩家都有高端设备，因此pin_memory默认为False。
