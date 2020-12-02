@@ -2,7 +2,7 @@
 
 2020.6
 
-Gao Junbin , Northeastern University at Qinhuangdao , Hebei , China
+Gao Junbin , Northeastern University
 
 Visit count : [![HitCount](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network.svg)](http://hits.dwyl.com/gaojunbin/Pytorch-Create-Network)
 
